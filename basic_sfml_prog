@@ -1,0 +1,136 @@
+#include <iostream>
+#include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
+
+using namespace std;
+using namespace sf;
+
+class Game
+{
+    public:
+        Game();
+        void run();
+
+    private:
+        void update(Time deltaTime);
+        void processEvents();
+        void render();
+        void handlePlayerInputs(Keyboard::Key key,bool isPressed);
+
+    private:
+
+        static const float		PlayerSpeed;
+		static const Time	TimePerFrame;
+        RenderWindow mWindow;
+        Sprite mPlayer;
+        Texture mTexture;
+        bool mIsMovingUp;
+        bool mIsMovingDown;
+        bool mIsMovingRight;
+        bool mIsMovingLeft;
+
+};
+
+const float Game::PlayerSpeed = 100.f;
+const Time Game::TimePerFrame = seconds(1.f/60.f);
+Game::Game()
+: mWindow(VideoMode(800,600),"SFML Application")
+, mIsMovingUp(false)
+, mIsMovingDown(false)
+, mIsMovingRight(false)
+, mIsMovingLeft(false)
+{
+    if(!mTexture.loadFromFile("C:/Users/Siddhant/Desktop/Eagle.png"))
+    {
+        //Error Handling
+    }
+    mPlayer.setTexture(mTexture);
+    mPlayer.setPosition(100.f,100.f);
+}
+void Game::run()
+{
+    /* This while loop is called main loop or game loop and is used to control lifetime of the application
+    */
+
+    /* An iteration of the game loop is called frame or tick and the measurement of how many loop iteration can a
+    game can do per second is called frame rate*/
+    Clock clock;
+    Time timeSinceLastUpdate = Time::Zero;
+    while(mWindow.isOpen())
+    {
+
+        Time elapsedTime=clock.restart();
+        timeSinceLastUpdate += elapsedTime;
+        while (timeSinceLastUpdate > TimePerFrame)
+		{
+			timeSinceLastUpdate -= TimePerFrame;
+            processEvents();
+            update(TimePerFrame);
+		}
+        render();
+    }
+}
+void Game::processEvents()
+{
+    Event event;
+    while(mWindow.pollEvent(event))
+    {
+        switch(event.type)
+        {
+            case Event::KeyPressed :
+                handlePlayerInputs(event.key.code,true);
+                break;
+            case Event::KeyReleased :
+                handlePlayerInputs(event.key.code,false);
+                break;
+            case Event::Closed :
+                mWindow.close();
+                break;
+        }
+    }
+}
+void Game::handlePlayerInputs(Keyboard::Key key,bool isPressed)
+{
+    if(key==Keyboard::W)
+    {
+        mIsMovingUp=isPressed;
+    }
+    if(key==Keyboard::S)
+    {
+        mIsMovingDown=isPressed;
+    }
+    if(key==Keyboard::D)
+    {
+        mIsMovingRight=isPressed;
+    }
+    if(key==Keyboard::A)
+    {
+        mIsMovingLeft=isPressed;
+    }
+}
+void Game::update(Time deltaTime)
+{
+    Vector2f movement(0.f,0.f);
+    if(mIsMovingDown==true)
+        movement.y+=100.f;
+    if(mIsMovingLeft==true)
+        movement.x-=100.f;
+    if(mIsMovingRight==true)
+        movement.x+=100.f;
+    if(mIsMovingUp==true)
+        movement.y-=100.f;
+
+     mPlayer.move(movement*deltaTime.asSeconds());
+}
+void Game::render()
+{
+    mWindow.clear();
+    mWindow.draw(mPlayer);
+    mWindow.display();
+}
+int main()
+{
+    Game game;
+    game.run();
+    return 0;
+}
