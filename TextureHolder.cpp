@@ -15,11 +15,11 @@ TextureHolder::TextureHolder()
 
 }
 
-void TextureHolder::load(Texture::ID id,const string& filename)
+void TextureHolder::load(Textures::ID id,const string& filename)
 {
-    unique_ptr<sf::Texture> texture(new sf::Texture);
+    unique_ptr<sf::Texture> texture(new sf::Texture());
 	if (!texture->loadFromFile(filename))
-		throw std::runtime_error("ResourceHolder::load - Failed to load " + filename);
+		throw runtime_error("ResourceHolder::load - Failed to load " + filename);
 
 	// If loading successful, insert resource to map
 	auto inserted=mTexturemap.insert(make_pair(id,move(texture)));
@@ -28,7 +28,7 @@ void TextureHolder::load(Texture::ID id,const string& filename)
 
 }
 
-sf::Texture& TextureHolder::get(Texture::ID id)
+sf::Texture& TextureHolder::get(Textures::ID id)
 {
     auto found = mTexturemap.find(id);
 	assert(found != mTexturemap.end());
@@ -36,7 +36,7 @@ sf::Texture& TextureHolder::get(Texture::ID id)
 	return *found->second;
 }
 
-const sf::Texture& TextureHolder::get(Texture::ID id) const
+const sf::Texture& TextureHolder::get(Textures::ID id) const
 {
     auto found = mTexturemap.find(id);
 	assert(found != mTexturemap.end());
