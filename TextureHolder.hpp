@@ -12,13 +12,13 @@
 using namespace std;
 using namespace sf;
 
-namespace Texture
+namespace Textures
 {
     enum ID
     {
-        Landscape,
-        Airplane,
-        Missile
+        Eagle,
+        Raptor,
+        Desert
     };
 }
 class TextureHolder
@@ -27,14 +27,15 @@ class TextureHolder
         TextureHolder();
 
     public:
-        void load(Texture::ID id,const string& filename);
-        sf::Texture& get(Texture::ID id);
-        const sf::Texture& get(Texture::ID id) const;
+        void load(Textures::ID id,const string& filename);
+        sf::Texture& get(Textures::ID id);
+        const sf::Texture& get(Textures::ID id) const;
 
     private:
-        map<Texture::ID,unique_ptr<sf::Texture>> mTexturemap;
+        map<Textures::ID,unique_ptr<sf::Texture>> mTexturemap;
 
 
 };
 
 #endif // TEXTUREHOLDER_HPP
+
