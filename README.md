@@ -1,4 +1,6 @@
 SFML-Game
 =========
-Hi this is siddhant and this is my first sfml project .
-This is bacically a game on fighting aircrafts.
+
+This project explores a new dimension in the traditional shooting game to make it more interesting and challenging. The complexity of this game makes it an ideal candidate for a major project as we can focus on advanced topics like graphics functionality and implementation of computer controlled intelligent opponents.
+
+
