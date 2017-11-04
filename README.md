@@ -1,7 +1,9 @@
 SFML-Game
 =========
 
-This project explores a new dimension in the traditional shooting game to make it more interesting and challenging. The complexity of this game makes it an ideal candidate for a major project as we can focus on advanced topics like graphics functionality and implementation of computer controlled intelligent opponents.
+This project explores a new dimension in the traditional shooting game to make it more interesting and challenging. The complexity of this game makes it an ideal candidate for a major project as we can focus on advanced topics like graphics functionality and implementation of computer controlled intelligent opponents. 
+
+This sky combat game includes various features such as  : a player can fire missiles and bullets, control the direction of his/her aircraft, and even pick up some goodies such as health, bullets, missiles and power-ups that the enemies drop when they are killed. 
 
 
 # Trailer Window
